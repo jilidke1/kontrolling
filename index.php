@@ -36,7 +36,6 @@
             height: 30px;
             border-radius: 50%;
             top: 3.5px;
-            down: 75px;
             margin-left: -3px;
         }
     </style>
@@ -50,11 +49,42 @@
             // Kondisi cek box switch
             var status = checkbox ? "ON" : "OFF";
             document.getElementById('status').innerHTML = status;
+
+        //Function Ajax untuk mengubah nilai status relay
+        var xmlhttp= new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                //Mengambil respon dari web setelah berhasil mengubah nilai
+                document.getElementById('status').innerHTML = xmlhttp.responseText;
+            }
         }
-        // Function Servo
+
+        //Eksecute file PHP untuk mengubah nilai di db
+        xmlhttp.open("GET", "relay.php?stat="+status, true);
+        //kirim data
+        xmlhttp.send();
+
+        }
+      //Function Servo
         function ubahposisi(value) {
+            // Update posisi di HTML
             document.getElementById('posisi').innerHTML = value;
+
+            // Function Ajax untuk mengubah nilai posisi servo
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    // Mengambil respon dari web setelah berhasil mengubah nilai
+                    document.getElementById('posisi').innerHTML = xmlhttp.responseText;
+                }
+            };
+
+            // Eksekusi file PHP untuk mengubah nilai di database
+            xmlhttp.open("GET", "servo.php?pos=" +value, true);
+            // Kirim data
+            xmlhttp.send();
         }
+
     </script>
 
   </head>
