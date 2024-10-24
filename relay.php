@@ -1,8 +1,6 @@
 <?php
     
-    //koneksi ke database
-    $konek = mysqli_connect("localhost", "root", "", "kontrolling");
-
+    require "./koneksi.php";
     //tangkap parameter dari ajax
     $stat = $_GET['stat'];
     if($stat ==  "ON"){
