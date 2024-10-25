@@ -1,6 +1,7 @@
 <?php
-    
+    //Jalur menuju File koneksi
     require "./koneksi.php";
+    
     //tangkap parameter dari ajax
     $stat = $_GET['stat'];
     if($stat ==  "ON"){

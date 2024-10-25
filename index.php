@@ -1,3 +1,21 @@
+<!-- Baca Status Terakhir (Jika Direfresh tidak mengulang) -->
+<?php
+
+require "koneksi.php";
+
+$sql = mysqli_query($konek, "SELECT * FROM kontrol");
+$data = mysqli_fetch_array($sql);
+
+// Ambil Status Relay
+$relay = $data['relay'];
+
+// Ambil Status Servo
+$servo = $data['servo'];
+
+?>
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -105,8 +123,8 @@
 
                     <!-- Switch Relay -->
                     <div class="custom-control custom-switch" style="font-size:17px; text-align:center;">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1" onchange="ubahstatus(this.checked)">
-                        <label class="custom-control-label" for="customSwitch1" style="padding-left:25px; font-size:24px"><span id="status">OFF</span></label>
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" onchange="ubahstatus(this.checked)" <?php if($relay == 1)echo "checked";?> >
+                        <label class="custom-control-label" for="customSwitch1" style="padding-left:25px; font-size:24px"><span id="status"><?php if($relay == 1)echo "ON"; else echo "OFF"; ?> </span></label>
                     </div>
                     <!-- Akhir Switch Relay -->
 
@@ -124,8 +142,8 @@
                 <!-- Range Slider -->
                     <form>
                         <div class="form-group" style="text-align: center;">
-                            <label for="formControlRange">Posisi Servo <span id="posisi">0</span> Derajat</label>
-                            <input type="range" class="form-control-range" id="formControlRange" min="0" max="180" step="1" value="0" onchange="ubahposisi(this.value)">
+                            <label for="formControlRange">Posisi Servo <span id="posisi"><?php echo $servo;?></span> Derajat</label>
+                            <input type="range" class="form-control-range" id="formControlRange" min="0" max="180" step="1" value="<?php echo $servo;?>" onchange="ubahposisi(this.value)">
                         </div>
                     </form>
                 <!-- Range Akhir Slider -->

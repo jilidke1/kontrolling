@@ -1,4 +1,5 @@
 <?php
+    //jalur menuju File koneksi
     require "./koneksi.php";
 
     //tangkap variabel pos dari ajax
